@@ -1,0 +1,6 @@
+spi.c:5:6:SPI1_Init	8	static
+spi.c:25:6:SPI2_Init	8	static
+spi.c:88:6:SPI1_SetSpeed	16	static
+spi.c:98:6:SPI2_SetSpeed	16	static
+spi.c:108:4:SPI1_ReadWriteByte	32	static
+spi.c:114:4:SPI2_ReadWriteByte	32	static

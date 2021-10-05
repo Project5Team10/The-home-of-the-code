@@ -1,0 +1,8 @@
+can.c:12:4:CAN1_Mode_Init	64	static
+can.c:36:4:CAN2_Mode_Init	64	static
+can.c:88:6:CAN_Config	48	static
+can.c:135:6:CAN2_Config	48	static
+can.c:187:4:CAN1_Send_Msg	32	static
+can.c:208:4:CAN2_Send_Msg	32	static
+can.c:233:4:CAN1_Receive_Msg	32	static
+can.c:251:4:CAN2_Receive_Msg	32	static
