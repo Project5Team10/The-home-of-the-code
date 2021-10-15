@@ -1,7 +1,7 @@
 #ifndef _SYS_H
 #define _SYS_H
 #include "stm32f4xx.h"
-#define SYSTEM_SUPPORT_OS		0		//����ϵͳ�ļ����Ƿ�֧��OS
+#define SYSTEM_SUPPORT_OS		0		
 
 
 typedef unsigned          char u8;
@@ -9,8 +9,7 @@ typedef unsigned short     int u16;
 typedef unsigned           int u32;
 
 
-///////////////////////////////////////////////////////////////////////////////////
-//����һЩ���õ��������Ͷ̹ؼ��� 
+
 /*typedef int32_t  s32;
 typedef int16_t s16;
 typedef int8_t  s8;
@@ -43,13 +42,11 @@ typedef __I uint32_t vuc32;
 typedef __I uint16_t vuc16; 
 typedef __I uint8_t vuc8;  */
 	 
-//λ������,ʵ��51���Ƶ�GPIO���ƹ���
-//����ʵ��˼��,�ο�<<CM3Ȩ��ָ��>>������(87ҳ~92ҳ).M4ͬM3����,ֻ�ǼĴ�����ַ����.
-//IO�ڲ����궨��
+
 #define BITBAND(addr, bitnum) ((addr & 0xF0000000)+0x2000000+((addr &0xFFFFF)<<5)+(bitnum<<2)) 
 #define MEM_ADDR(addr)  *((volatile unsigned long  *)(addr)) 
 #define BIT_ADDR(addr, bitnum)   MEM_ADDR(BITBAND(addr, bitnum)) 
-//IO�ڵ�ַӳ��
+
 #define GPIOA_ODR_Addr    (GPIOA_BASE+20) //0x40020014
 #define GPIOB_ODR_Addr    (GPIOB_BASE+20) //0x40020414 
 #define GPIOC_ODR_Addr    (GPIOC_BASE+20) //0x40020814 
@@ -74,46 +71,44 @@ typedef __I uint8_t vuc8;  */
 #define GPIOJ_IDR_Addr    (GPIOJ_BASE+16) //0x40022410 
 #define GPIOK_IDR_Addr    (GPIOK_BASE+16) //0x40022810 
 
-//IO�ڲ���,ֻ�Ե�һ��IO��!
-//ȷ��n��ֵС��16!
-#define PAout(n)   BIT_ADDR(GPIOA_ODR_Addr,n)  //��� 
-#define PAin(n)    BIT_ADDR(GPIOA_IDR_Addr,n)  //���� 
 
-#define PBout(n)   BIT_ADDR(GPIOB_ODR_Addr,n)  //��� 
-#define PBin(n)    BIT_ADDR(GPIOB_IDR_Addr,n)  //���� 
+#define PAout(n)   BIT_ADDR(GPIOA_ODR_Addr,n)  
+#define PAin(n)    BIT_ADDR(GPIOA_IDR_Addr,n)  
 
-#define PCout(n)   BIT_ADDR(GPIOC_ODR_Addr,n)  //��� 
-#define PCin(n)    BIT_ADDR(GPIOC_IDR_Addr,n)  //���� 
+#define PBout(n)   BIT_ADDR(GPIOB_ODR_Addr,n)  
+#define PBin(n)    BIT_ADDR(GPIOB_IDR_Addr,n)  
 
-#define PDout(n)   BIT_ADDR(GPIOD_ODR_Addr,n)  //��� 
-#define PDin(n)    BIT_ADDR(GPIOD_IDR_Addr,n)  //���� 
+#define PCout(n)   BIT_ADDR(GPIOC_ODR_Addr,n)  
+#define PCin(n)    BIT_ADDR(GPIOC_IDR_Addr,n) 
 
-#define PEout(n)   BIT_ADDR(GPIOE_ODR_Addr,n)  //��� 
-#define PEin(n)    BIT_ADDR(GPIOE_IDR_Addr,n)  //����
+#define PDout(n)   BIT_ADDR(GPIOD_ODR_Addr,n)  
+#define PDin(n)    BIT_ADDR(GPIOD_IDR_Addr,n)  
 
-#define PFout(n)   BIT_ADDR(GPIOF_ODR_Addr,n)  //��� 
-#define PFin(n)    BIT_ADDR(GPIOF_IDR_Addr,n)  //����
+#define PEout(n)   BIT_ADDR(GPIOE_ODR_Addr,n)  
+#define PEin(n)    BIT_ADDR(GPIOE_IDR_Addr,n) 
 
-#define PGout(n)   BIT_ADDR(GPIOG_ODR_Addr,n)  //��� 
-#define PGin(n)    BIT_ADDR(GPIOG_IDR_Addr,n)  //����
+#define PFout(n)   BIT_ADDR(GPIOF_ODR_Addr,n)  
+#define PFin(n)    BIT_ADDR(GPIOF_IDR_Addr,n)  
+#define PGout(n)   BIT_ADDR(GPIOG_ODR_Addr,n) 
+#define PGin(n)    BIT_ADDR(GPIOG_IDR_Addr,n)  
 
-#define PHout(n)   BIT_ADDR(GPIOH_ODR_Addr,n)  //��� 
-#define PHin(n)    BIT_ADDR(GPIOH_IDR_Addr,n)  //����
+#define PHout(n)   BIT_ADDR(GPIOH_ODR_Addr,n)  
+#define PHin(n)    BIT_ADDR(GPIOH_IDR_Addr,n)  
 
-#define PIout(n)   BIT_ADDR(GPIOI_ODR_Addr,n)  //��� 
-#define PIin(n)    BIT_ADDR(GPIOI_IDR_Addr,n)  //����
+#define PIout(n)   BIT_ADDR(GPIOI_ODR_Addr,n) 
+#define PIin(n)    BIT_ADDR(GPIOI_IDR_Addr,n)  
 
-#define PJout(n)   BIT_ADDR(GPIOJ_ODR_Addr,n)  //��� 
-#define PJin(n)    BIT_ADDR(GPIOJ_IDR_Addr,n)  //����
+#define PJout(n)   BIT_ADDR(GPIOJ_ODR_Addr,n)  
+#define PJin(n)    BIT_ADDR(GPIOJ_IDR_Addr,n)  
 
-#define PKout(n)   BIT_ADDR(GPIOK_ODR_Addr,n)  //��� 
-#define PKin(n)    BIT_ADDR(GPIOK_IDR_Addr,n)  //����
+#define PKout(n)   BIT_ADDR(GPIOK_ODR_Addr,n)  
+#define PKin(n)    BIT_ADDR(GPIOK_IDR_Addr,n)  
 
-void Stm32_Clock_Init(u32 plln,u32 pllm,u32 pllp,u32 pllq);//ʱ��ϵͳ����
-//����Ϊ��ຯ��
-void WFI_SET(void);		//ִ��WFIָ��
-void INTX_DISABLE(void);//�ر������ж�
-void INTX_ENABLE(void);	//���������ж�
-void MSR_MSP(u32 addr);	//���ö�ջ��ַ 
+void Stm32_Clock_Init(u32 plln,u32 pllm,u32 pllp,u32 pllq);
+
+void WFI_SET(void);		
+void INTX_DISABLE(void);
+void INTX_ENABLE(void);	
+void MSR_MSP(u32 addr);	
 #endif
 
