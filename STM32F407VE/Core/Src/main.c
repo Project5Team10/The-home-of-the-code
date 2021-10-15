@@ -107,95 +107,94 @@ int main(void)
   MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
 
-	LED0=0;
-	LED1=0;
-	LED2=0;
-	LED3=0;
+LED0=0;
+LED1=0;
+LED2=0;
+LED3=0;
 
-	NRF24L01_Init();    		    //初始化NRF24L01
-	NRF24L01_2_Init();    		    //初始化NRF24L01
-	while(NRF24L01_Check())
-	{
-		LED0=0;
-		LED1=0;
-	}
-	LED0=1;
-	LED1=1;
-	while(NRF24L01_2_Check())
-	{
+NRF24L01_Init(); //Initialize NRF24L01
+NRF24L01_2_Init(); //Initialize NRF24L01
+while(NRF24L01_Check())
+{
+LED0=0;
+LED1=0;
+}
+LED0=1;
+LED1=1;
+while(NRF24L01_2_Check())
+{
 
-		LED2=0;
-		LED3=0;
-	}
-	LED2=1;
-	LED3=1;
-	NRF24L01_RX_Mode();
-	NRF24L01_2_TX_Mode();
+LED2=0;
+LED3=0;
+}
+LED2=1;
+LED3=1;
+NRF24L01_RX_Mode();
+NRF24L01_2_TX_Mode();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-	CAN1_Mode_Init(CAN_SJW_1TQ,CAN_BS2_6TQ,CAN_BS1_7TQ,6,CAN_MODE_NORMAL);
-	CAN_Config();
-	CAN2_Mode_Init(CAN_SJW_1TQ,CAN_BS2_6TQ,CAN_BS1_7TQ,6,CAN_MODE_NORMAL);
-	CAN2_Config();
+CAN1_Mode_Init(CAN_SJW_1TQ,CAN_BS2_6TQ,CAN_BS1_7TQ,6,CAN_MODE_NORMAL);
+CAN_Config();
+CAN2_Mode_Init(CAN_SJW_1TQ,CAN_BS2_6TQ,CAN_BS1_7TQ,6,CAN_MODE_NORMAL);
+CAN2_Config();
   while (1)
   {
-		if(NRF24L01_RxPacket(canbuf)==0)//无线收到后，用can2发送
-		{
-			if(canbuf[0]==1)
-			{
-				canbuf[0]=1;
-				CAN2_Send_Msg(canbuf,1);//用can2发送
-			}
+if(NRF24L01_RxPacket(canbuf)==0)//After receiving wirelessly, use can2 to send
+{
+if(canbuf[0]==1)
+{
+canbuf[0]=1;
+CAN2_Send_Msg(canbuf,1);//Send with can2
+}
 
-		}
-		if(CAN1_Receive_Msg(canbuf)==1)//can2接收到后，用无线发送
-		{
-			if(canbuf[0]==1)
-			{
-				canbuf[0]=0;
-				LED0=!LED0;
-				LED1=!LED1;
-				LED2=!LED2;
-				LED3=!LED3;
-			}
-		}
-		if(CAN2_Receive_Msg(canbuf)==1)//can2接收到后，用无线发送
-		{
-			if(canbuf[0]==1)
-			{
-				canbuf[0]=1;
-				if(NRF24L01_2_TxPacket(canbuf)==TX_OK)
-				{
+}
+if(CAN1_Receive_Msg(canbuf)==1)//After can2 is received, send it wirelessly
+{
+if(canbuf[0]==1)
+{
+canbuf[0]=0;
+LED0=!LED0;
+LED1=!LED1;
+LED2=!LED2;
+LED3=!LED3;
+}
+}
+if(CAN2_Receive_Msg(canbuf)==1)//After can2 is received, send it wirelessly
+{
+if(canbuf[0]==1)
+{
+canbuf[0]=1;
+if(NRF24L01_2_TxPacket(canbuf)==TX_OK)
+{
 
-				}
-			}
-		}
-		if(WK_UP==1&&key_up==1)
-		{
-			HAL_Delay(10);
-			if(WK_UP==1&&key_up==1)//按键按下后，用can1发送
-			{
-				key_up=0;
+}
+}
+}
+if(WK_UP==1&&key_up==1)
+{
+HAL_Delay(10);
+if(WK_UP==1&&key_up==1)//After the button is pressed, use can1 to send
+{
+key_up=0;
 
-				canbuf[0]=1;
-				CAN1_Send_Msg(canbuf,1);
+canbuf[0]=1;
+CAN1_Send_Msg(canbuf,1);
 
-			}
-		}
-		else if(WK_UP==0)
-		{
-			key_up=1;
-		}
-		HAL_Delay(50);
+}
+}
+else if(WK_UP==0)
+{
+key_up=1;
+}
+HAL_Delay(50);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
 }
-
 /**
   * @brief System Clock Configuration
   * @retval None
